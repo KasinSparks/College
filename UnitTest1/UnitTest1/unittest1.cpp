@@ -17,8 +17,6 @@
 #include "../../../../../../Users/Kasin/Documents/GitHub/Data-Structures/Project1/NvraRecord.cpp"
 #include "../../../../../../Users/Kasin/Documents/GitHub/Data-Structures/Project1/Search.h"
 #include "../../../../../../Users/Kasin/Documents/GitHub/Data-Structures/Project1/Sorter.h"
-#include "../../../../../../Users/Kasin/Documents/GitHub/Data-Structures/Project1/IntComparator.h"
-#include "../../../../../../Users/Kasin/Documents/GitHub/Data-Structures/Project1/IntComparator.cpp"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
