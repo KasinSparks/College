@@ -12,5 +12,6 @@
 
 ## Contact Info
 ~~~
-E-mail kasin.sparks@ou.edu with any questions.
+* If you are having issues with the test, please create a new ticket in the Issues tab.
+* E-mail kasin.sparks@ou.edu with any questions.
 ~~~
