@@ -1,0 +1,37 @@
+﻿  unittest1.cpp
+c:\users\kasin\source\repos\unittest1\unittest1\unittest1.cpp(44): warning C4101: 'ex': unreferenced local variable
+c:\users\kasin\source\repos\unittest1\unittest1\unittest1.cpp(252): warning C4101: 'ex': unreferenced local variable
+c:\users\kasin\documents\github\data-structures\project1\search.h(25): warning C4244: 'argument': conversion from '__int64' to 'unsigned long', possible loss of data
+  c:\users\kasin\source\repos\unittest1\unittest1\unittest1.cpp(225): note: see reference to function template instantiation '__int64 binarySearch<NvraRecord>(const T &,const TemplatedArray<T> &,const Comparator<T> &)' being compiled
+          with
+          [
+              T=NvraRecord
+          ]
+c:\users\kasin\documents\github\data-structures\project1\search.h(58): warning C4244: 'argument': conversion from '__int64' to 'unsigned long', possible loss of data
+c:\users\kasin\source\repos\unittest1\unittest1\unittest1.cpp(83): warning C4018: '<': signed/unsigned mismatch
+  c:\users\kasin\source\repos\unittest1\unittest1\unittest1.cpp(288): note: see reference to function template instantiation 'char &UnitTests::UnitTest1::convertIntToString<int>(T)' being compiled
+          with
+          [
+              T=int
+          ]
+c:\users\kasin\documents\github\data-structures\project1\sorter.h(32): warning C4244: '=': conversion from '__int64' to 'unsigned long', possible loss of data
+  c:\users\kasin\documents\github\data-structures\project1\sorter.h(26): note: while compiling class template member function 'void Sorter<NvraRecord>::quickSortAlg(TemplatedArray<NvraRecord> &,const Comparator<NvraRecord> &,__int64,__int64)'
+  c:\users\kasin\documents\github\data-structures\project1\sorter.h(21): note: see reference to function template instantiation 'void Sorter<NvraRecord>::quickSortAlg(TemplatedArray<NvraRecord> &,const Comparator<NvraRecord> &,__int64,__int64)' being compiled
+  c:\users\kasin\documents\github\data-structures\project1\sorter.h(20): note: while compiling class template member function 'void Sorter<NvraRecord>::sort(TemplatedArray<NvraRecord> &,const Comparator<NvraRecord> &)'
+  c:\users\kasin\source\repos\unittest1\unittest1\unittest1.cpp(222): note: see reference to function template instantiation 'void Sorter<NvraRecord>::sort(TemplatedArray<NvraRecord> &,const Comparator<NvraRecord> &)' being compiled
+  c:\users\kasin\source\repos\unittest1\unittest1\unittest1.cpp(222): note: see reference to class template instantiation 'Sorter<NvraRecord>' being compiled
+c:\users\kasin\documents\github\data-structures\project1\sorter.h(39): warning C4244: 'argument': conversion from '__int64' to 'unsigned long', possible loss of data
+c:\users\kasin\documents\github\data-structures\project1\sorter.h(43): warning C4244: 'argument': conversion from '__int64' to 'unsigned long', possible loss of data
+c:\users\kasin\documents\github\data-structures\project1\sorter.h(46): warning C4244: 'argument': conversion from '__int64' to 'unsigned long', possible loss of data
+c:\users\kasin\documents\github\data-structures\project1\sorter.h(46): warning C4244: 'argument': conversion from '__int64' to 'const unsigned long', possible loss of data
+c:\users\kasin\documents\github\data-structures\project1\sorter.h(54): warning C4244: 'argument': conversion from '__int64' to 'unsigned long', possible loss of data
+c:\users\kasin\documents\github\data-structures\project1\sorter.h(54): warning C4244: 'argument': conversion from '__int64' to 'const unsigned long', possible loss of data
+c:\users\kasin\source\repos\unittest1\unittest1\unittest1.cpp(95): warning C4018: '<': signed/unsigned mismatch
+  c:\users\kasin\source\repos\unittest1\unittest1\unittest1.cpp(71): note: see reference to function template instantiation 'void UnitTests::UnitTest1::reverseArr<int>(TemplatedArray<int> &)' being compiled
+  c:\users\kasin\source\repos\unittest1\unittest1\unittest1.cpp(288): note: see reference to function template instantiation 'char &UnitTests::UnitTest1::convertIntToString<int>(T)' being compiled
+          with
+          [
+              T=int
+          ]
+     Creating library C:\Users\Kasin\Documents\GitHub\Data-Structures\Debug\UnitTest1.lib and object C:\Users\Kasin\Documents\GitHub\Data-Structures\Debug\UnitTest1.exp
+  UnitTest1.vcxproj -> C:\Users\Kasin\Documents\GitHub\Data-Structures\Debug\UnitTest1.dll
