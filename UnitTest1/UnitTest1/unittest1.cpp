@@ -9,14 +9,17 @@
 
 /* include your project file
  * change relative path to match your project */
-#include "../../../../../../Users/Kasin/Documents/GitHub/Data-Structures/Project1/Comparator.h"
-#include "../../../../../../Users/Kasin/Documents/GitHub/Data-Structures/Project1/TemplatedArray.h"
-#include "../../../../../../Users/Kasin/Documents/GitHub/Data-Structures/Project1/NvraRecord.h"
-#include "../../../../../../Users/Kasin/Documents/GitHub/Data-Structures/Project1/NvraComparator.h"
-#include "../../../../../../Users/Kasin/Documents/GitHub/Data-Structures/Project1/NvraComparator.cpp"
-#include "../../../../../../Users/Kasin/Documents/GitHub/Data-Structures/Project1/NvraRecord.cpp"
-#include "../../../../../../Users/Kasin/Documents/GitHub/Data-Structures/Project1/Search.h"
-#include "../../../../../../Users/Kasin/Documents/GitHub/Data-Structures/Project1/Sorter.h"
+#include "../../../../Projects/Project1/Project1/OULink.h"
+#include "../../../../Projects/Project1/Project1/OULinkedList.h"
+#include "../../../../Projects/Project1/Project1/OULinkedListEnumerator.h"
+#include "../../../../Projects/Project1/Project1/Comparator.h"
+#include "../../../../Projects/Project1/Project1/TemplatedArray.h"
+#include "../../../../Projects/Project1/Project1/NvraRecord.h"
+#include "../../../../Projects/Project1/Project1/NvraComparator.h"
+#include "../../../../Projects/Project1/Project1/NvraComparator.cpp"
+#include "../../../../Projects/Project1/Project1/NvraRecord.cpp"
+#include "../../../../Projects/Project1/Project1/Search.h"
+#include "../../../../Projects/Project1/Project1/Sorter.h"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -284,6 +287,48 @@ public:
 		int i = 23465160;
 		std::string s = &convertIntToString(i);
 		Logger::WriteMessage(&convertIntToString(i));
+	}
+
+
+
+	TEST_METHOD(LinkList_Append_And_LE_Next) {
+		// requires working append, comparator, and list enum
+		NvraComparator* comp = new NvraComparator(0);
+		OULinkedList<NvraRecord>* tempList = new OULinkedList<NvraRecord>(comp);
+
+		for (unsigned long i = 0; i < 20; ++i) {
+			NvraRecord* tempRec = new NvraRecord();
+			tempRec->addNum(i);
+			if (!(*tempList).append(tempRec)) {
+				throw std::exception();
+			} else {
+				Logger::WriteMessage("Appended record");
+			}
+		}
+
+		OULinkedListEnumerator<NvraRecord> list_enum = tempList->enumerator();
+
+		for (unsigned int i = 0; i < tempList->getSize(); ++i) {
+			Assert::AreEqual(list_enum.next().getNum(0), i);
+		}
+		
+
+		delete tempList;
+		delete comp;
+	}
+
+	TEST_METHOD(ListEnum_Next) {
+		NvraComparator* comp = new NvraComparator(0);
+		OULinkedList<NvraRecord>* tempList = new OULinkedList<NvraRecord>(comp);
+
+		OULinkedListEnumerator<NvraRecord> list_enum = tempList->enumerator();
+
+		try {
+			list_enum.next();
+			Assert::Fail;
+		} catch (...) {
+			// test passed
+		}
 	}
 
 	};
