@@ -7,19 +7,20 @@
 
 #include "CppUnitTest.h"
 
-/* include your project file
+/* include your project file 
  * change relative path to match your project */
-#include "../../../../Projects/Project1/Project1/OULink.h"
-#include "../../../../Projects/Project1/Project1/OULinkedList.h"
-#include "../../../../Projects/Project1/Project1/OULinkedListEnumerator.h"
-#include "../../../../Projects/Project1/Project1/Comparator.h"
-#include "../../../../Projects/Project1/Project1/TemplatedArray.h"
-#include "../../../../Projects/Project1/Project1/NvraRecord.h"
-#include "../../../../Projects/Project1/Project1/NvraComparator.h"
-#include "../../../../Projects/Project1/Project1/NvraComparator.cpp"
-#include "../../../../Projects/Project1/Project1/NvraRecord.cpp"
-#include "../../../../Projects/Project1/Project1/Search.h"
-#include "../../../../Projects/Project1/Project1/Sorter.h"
+#include "../Project1/TemplatedArray.h"
+#include "../Project1/NvraRecord.h"
+#include "../Project1/NvraComparator.h"
+#include "../Project1/NvraComparator.cpp"
+#include "../Project1/NvraRecord.cpp"
+#include "../Project1/Search.h"
+#include "../Project1/Sorter.h"
+#include "../Project1/IntComparator.h"
+#include "../Project1/IntComparator.cpp"
+#include "../Project1/OULinkedList.h"
+#include "../Project1/AVLTree.h"
+#include "../Project1/AVLTreeEnumerator.h"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -39,11 +40,13 @@ public:
 		}
 
 
+		
 		try {
 			ta.addAt(new int(52), 3);
 		} catch (ExceptionIndexOutOfRange ex) {
 			Logger::WriteMessage("OUT OF BOUNDS");
 		}
+		
 	}
 
 	template<typename T>
@@ -79,7 +82,7 @@ public:
 		}
 
 		str[list.getSize()] = 0;
-
+		
 		for (int i = 0; i < list.getSize(); ++i) {
 			str[i] = '0' + list[i];
 		}
@@ -112,7 +115,10 @@ public:
 		return -1;
 	}
 
-
+	template<typename T>
+	void findItem() {
+		list.find(&key);
+	}
 
 	TEST_METHOD(TEST_TemplatedArrayGet) {
 		createArray();
@@ -137,6 +143,13 @@ public:
 		Assert::AreEqual(1, (int)rec.getNum(0));
 	}
 
+	TEST_METHOD(TEST_TemplatedArrayCap) {
+		createArray();
+		ta.add(new int(2));
+		Assert::AreEqual(12, (int)ta.getSize());
+		Assert::AreEqual(20, (int)ta.getCapacity());
+	}
+
 	TEST_METHOD(TEST_NvraComparator_IntValues) {
 		NvraRecord rec1;
 		NvraRecord rec2;
@@ -147,15 +160,15 @@ public:
 		Assert::AreEqual(-1, c.compare(rec1, rec2));
 		Logger::WriteMessage("PASSED");
 
-		rec1.setNum(4, 20);
-		rec2.setNum(4, 20);
+		rec1.setNum(4,20);
+		rec2.setNum(4,20);
 		NvraComparator c2(23);
 		Logger::WriteMessage("NvraComparator 0.1: ");
 		Assert::AreEqual(0, c2.compare(rec1, rec2));
 		Logger::WriteMessage("PASSED");
 
-		rec1.setNum(4, 5);
-		rec2.setNum(3, 5);
+		rec1.setNum(4,5);
+		rec2.setNum(3,5);
 		NvraComparator c3(6);
 		Logger::WriteMessage("NvraComparator 0.2: ");
 		Assert::AreEqual(1, c3.compare(rec1, rec2));
@@ -214,7 +227,7 @@ public:
 		for (int i = 0; i < 19; ++i) {
 			NvraRecord* tempNvra = new NvraRecord();
 			(*tempNvra).addNum(5);
-			arr.addAt(tempNvra, 5);
+			arr.addAt(tempNvra,5);
 			delete tempNvra;
 			Logger::WriteMessage("Ran Loop2...");
 		}
@@ -283,52 +296,126 @@ public:
 		Assert::AreEqual(-1, c.compare(rec1, rec2));
 	}
 
+	TEST_METHOD(LinkedList) {
+		IntComparator comp;
+
+		OULinkedList<int> list(&comp);
+		int i = 0;
+		for (i = 0; i < 20; ++i) {
+			list.insert(&i);
+		}
+
+		int key = 10;
+		Logger::WriteMessage("Testing insert and find: ");
+		Assert::AreEqual(list.find(&key), 10);
+		Logger::WriteMessage("PASSED!\n");
+
+		Logger::WriteMessage("Testing append: ");
+		list.append(&i);
+		key = 20;
+		Assert::AreEqual(list.find(&key), 20);
+		Logger::WriteMessage("PASSED!\n");
+
+
+		Logger::WriteMessage("Testing remove: ");
+		key = 7;
+		list.remove(&key);
+		
+		bool exceptionThrown = false;
+
+		try {
+			list.find(&key);
+			Assert::Fail();
+		} catch (...) {
+			Logger::WriteMessage("PASSED!\n");
+		}
+
+		
+
+	}
+
 	TEST_METHOD(IntToString) {
 		int i = 23465160;
 		std::string s = &convertIntToString(i);
 		Logger::WriteMessage(&convertIntToString(i));
 	}
 
+	TEST_METHOD(AVLTREE_INSERT) {
+		IntComparator comp;
+		AVLTree<int> tree(&comp);
 
 
-	TEST_METHOD(LinkList_Append_And_LE_Next) {
-		// requires working append, comparator, and list enum
-		NvraComparator* comp = new NvraComparator(0);
-		OULinkedList<NvraRecord>* tempList = new OULinkedList<NvraRecord>(comp);
-
-		for (unsigned long i = 0; i < 20; ++i) {
-			NvraRecord* tempRec = new NvraRecord();
-			tempRec->addNum(i);
-			if (!(*tempList).append(tempRec)) {
-				throw std::exception();
-			} else {
-				Logger::WriteMessage("Appended record");
-			}
+		for (int i = 0; i < 10; ++i) {
+			tree.insert(new int(i));
 		}
 
-		OULinkedListEnumerator<NvraRecord> list_enum = tempList->enumerator();
+		tree.insert(new int(42));
 
-		for (unsigned int i = 0; i < tempList->getSize(); ++i) {
-			Assert::AreEqual(list_enum.next().getNum(0), i);
+		Assert::AreEqual(11,(int)tree.getSize());
+		Logger::WriteMessage("Passed! 11 items were added to tree and getSize returned 11!");
+
+		Assert::AreEqual(6, tree.find(new int(6)));
+		Logger::WriteMessage("Passed. Tree found item 7 after inserting!");
+
+		Assert::AreEqual(42, tree.find(new int(42)));
+		Logger::WriteMessage("Passed. Tree found item 42 after inserting!");
+
+		Logger::WriteMessage("\nIN ORDER\n");
+		AVLTreeEnumerator<int> treeEnum(&tree, AVLTreeOrder::inorder);
+
+		while (treeEnum.hasNext()) {
+			Logger::WriteMessage(&convertIntToString<int>(treeEnum.next()));
 		}
-		
 
-		delete tempList;
-		delete comp;
+		Logger::WriteMessage("\nPRE ORDER\n");
+		AVLTreeEnumerator<int> treeEnum2(&tree, AVLTreeOrder::preorder);
+
+		while (treeEnum2.hasNext()) {
+			Logger::WriteMessage(&convertIntToString<int>(treeEnum2.next()));
+		}
+
+
+		Logger::WriteMessage("\nPOST ORDER\n");
+		AVLTreeEnumerator<int> treeEnum3(&tree, AVLTreeOrder::postorder);
+
+		while (treeEnum3.hasNext()) {
+			Logger::WriteMessage(&convertIntToString<int>(treeEnum3.next()));
+		}
 	}
 
-	TEST_METHOD(ListEnum_Next) {
-		NvraComparator* comp = new NvraComparator(0);
-		OULinkedList<NvraRecord>* tempList = new OULinkedList<NvraRecord>(comp);
+	TEST_METHOD(AVLTREE_REMOVE) {
+		IntComparator comp;
+		AVLTree<int> tree(&comp);
 
-		OULinkedListEnumerator<NvraRecord> list_enum = tempList->enumerator();
+
+		for (int i = 0; i < 10; ++i) {
+			tree.insert(&i);
+		}
+		int key = 7;
+
+		Assert::IsTrue(tree.remove(&key));
+		Logger::WriteMessage("Passed first remove");
+		Assert::IsFalse(tree.remove(&key));
+		Logger::WriteMessage("Passed attempt to remove an item previously removed");
+
+		key = 13;
+		Assert::IsFalse(tree.remove(&key));
+		Logger::WriteMessage("Passed second remove");
+
+		key = 4;
+		Assert::IsTrue(tree.remove(&key));
+		Logger::WriteMessage("Passed third remove");
 
 		try {
-			list_enum.next();
-			Assert::Fail;
+			tree.find(&key);
+			Assert::Fail();
 		} catch (...) {
-			// test passed
+			
 		}
+
+		Assert::AreEqual(9, (int)tree.getSize());
+
+
 	}
 
 	};
